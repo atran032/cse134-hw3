@@ -1,46 +1,52 @@
-@import 'var.css';
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import url('var.css');
 
-/* Global resets and body styling */
+/* General reset */
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--font-body);
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.6;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 1.5rem;
-}
-
-/* Headings */
-h1, h2, h3 {
-  font-family: var(--font-heading);
-  color: var(--color-accent);
-}
-
-/* Navigation */
-nav ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 1rem;
-}
-
-nav a {
-  text-decoration: none;
-  color: var(--color-accent);
-  font-weight: bold;
-}
-
-nav a:hover {
-  color: var(--color-accent-light);
-}
-
-/* Footer */
-footer {
-  margin-top: 2rem;
+  font-family: var(--font-alt);
+  font-size: var(--font-size-base);
+  color: var(--lcd-dark);
+  background-color: var(--lcd-light);
   text-align: center;
-  font-size: 0.9em;
-  color: #666;
+}
+
+/* Add a bit of a “screen” look */
+main {
+  margin: 2rem auto;
+  max-width: 800px;
+  padding: 2rem;
+  border: 6px solid var(--lcd-border);
+  border-radius: 8px;
+  background: var(--lcd-light);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Headings and nav */
+header, footer {
+  background: var(--lcd-border);
+  color: var(--lcd-light);
+  padding: 1rem;
+  font-family: var(--font-main);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-main);
+  text-transform: uppercase;
+}
+
+/* Links look like LCD text pixels */
+a {
+  color: var(--lcd-dark);
+  text-decoration: underline dotted;
+}
+
+a:hover {
+  color: var(--lcd-border);
+}
+
+/* Optional pixelated SVG look */
+svg {
+  image-rendering: pixelated;
 }

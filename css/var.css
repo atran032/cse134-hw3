@@ -1,12 +1,11 @@
 :root {
-  --font-body: "Segoe UI", Roboto, sans-serif;
-  --font-heading: "Georgia", serif;
+  /* Classic Game Boy inspired color palette */
+  --lcd-light: #c5dca0;  /* pale greenish background */
+  --lcd-dark: #2d4739;   /* dark greenish text */
+  --lcd-border: #1e2f24; /* optional border or accent color */
 
-  --color-bg: #f8f8f8;
-  --color-text: #222;
-  --color-accent: #0066cc;
-  --color-accent-light: #cce5ff;
-
-  --border-radius: 8px;
-  --max-width: 900px;
+  /* Typography and layout */
+  --font-main: 'Press Start 2P', monospace;
+  --font-alt: 'VT323', monospace;
+  --font-size-base: 16px;
 }
