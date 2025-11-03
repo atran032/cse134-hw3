@@ -1,0 +1,12 @@
+:root {
+  --font-body: "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Georgia", serif;
+
+  --color-bg: #f8f8f8;
+  --color-text: #222;
+  --color-accent: #0066cc;
+  --color-accent-light: #cce5ff;
+
+  --border-radius: 8px;
+  --max-width: 900px;
+}

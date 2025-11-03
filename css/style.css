@@ -1,0 +1,46 @@
+@import 'var.css';
+
+/* Global resets and body styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Headings */
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  color: var(--color-accent);
+}
+
+/* Navigation */
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--color-accent);
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: var(--color-accent-light);
+}
+
+/* Footer */
+footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.9em;
+  color: #666;
+}
