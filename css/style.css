@@ -10,9 +10,28 @@ body {
   color: var(--lcd-dark);
   background-color: var(--lcd-light);
   text-align: center;
+  text-shadow: 0 0 2px rgba(45, 71, 57, 0.6);
+  position: relative;
+  overflow-x: hidden; /* prevent unwanted sideways scrollbars */
 }
 
-/* Add a bit of a “screen” look */
+/* Full-page CRT scanline overlay */
+body::before {
+  content: "";
+  position: fixed; /* 👈 stays in place while scrolling */
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.06) 0px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Base screen style */
 main {
   margin: 2rem auto;
   max-width: 800px;
@@ -21,6 +40,8 @@ main {
   border-radius: 8px;
   background: var(--lcd-light);
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1; /* stays under CRT overlay */
 }
 
 /* Headings and nav */
