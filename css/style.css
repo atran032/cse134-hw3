@@ -1,24 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Orbitron:wght@500&display=swap');
 @import url('var.css');
 
-/* General reset */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: var(--font-alt);
-  font-size: var(--font-size-base);
-  color: var(--lcd-dark);
-  background-color: var(--lcd-light);
-  text-align: center;
-  text-shadow: 0 0 2px rgba(45, 71, 57, 0.6);
-  position: relative;
-  overflow-x: hidden; /* prevent unwanted sideways scrollbars */
+/* Console container */
+.console {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #cfc8b0; /* Game Boy plastic */
+  border-radius: 30px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  margin: 2rem auto;
+  max-width: 960px;
+  overflow: hidden;
+  border: 6px solid #8a8577;
 }
 
-/* Full-page CRT scanline overlay */
-body::before {
+/* Top bezel */
+header.bezel-top {
+  width: 100%;
+  background: linear-gradient(to bottom, #d9d2be 0%, #bdb49f 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header.bezel-top h1 {
+  font-family: var(--font-ui); /* 👈 blocky UI font */
+  font-size: 1rem;
+  color: var(--lcd-dark);
+  flex: 1;
+  text-align: center;
+}
+
+header nav a {
+  font-family: var(--font-ui);
+  color: var(--lcd-dark);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+header .led {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, red 0%, darkred 80%);
+  box-shadow: 0 0 6px red;
+}
+
+/* --- Screen area --- */
+main.screen {
+  position: relative; /* 👈 needed for CRT overlay positioning */
+  background: var(--lcd-light);
+  color: var(--lcd-dark);
+  width: 90%;
+  max-width: 800px;
+  padding: 2rem;
+  border: 8px inset #3a3a3a;
+  border-radius: 8px;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  text-shadow: 0 0 2px rgba(45, 71, 57, 0.6);
+  margin: 1rem auto;
+  overflow-y: auto;
+  font-family: var(--font-alt); /* 👈 pixelated screen font */
+  font-size: var(--font-size-base);
+}
+
+/* 👇 CRT scanline overlay — applied only to the screen */
+main.screen::after {
   content: "";
-  position: fixed; /* 👈 stays in place while scrolling */
+  position: absolute;
   inset: 0;
   background-image: repeating-linear-gradient(
     to bottom,
@@ -28,46 +84,62 @@ body::before {
   );
   background-size: 100% 4px;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 2;
+  border-radius: inherit; /* keeps the scanlines nicely inside the screen frame */
 }
 
-/* Base screen style */
-main {
-  margin: 2rem auto;
-  max-width: 800px;
-  padding: 2rem;
-  border: 6px solid var(--lcd-border);
+/* --- Bottom bezel --- */
+footer.bezel-bottom {
+  width: 100%;
+  background: linear-gradient(to top, #d9d2be 0%, #bdb49f 100%);
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Speaker grille */
+footer .speaker {
+  width: 100px;
+  height: 60px;
+  background: repeating-linear-gradient(
+    45deg,
+    #444 0 2px,
+    transparent 2px 4px
+  );
+  opacity: 0.5;
   border-radius: 8px;
-  background: var(--lcd-light);
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
-  position: relative;
-  z-index: 1; /* stays under CRT overlay */
 }
 
-/* Headings and nav */
-header, footer {
-  background: var(--lcd-border);
-  color: var(--lcd-light);
-  padding: 1rem;
-  font-family: var(--font-main);
+/* --- Buttons --- */
+footer .buttons {
+  display: flex;
+  gap: 1rem;
 }
 
-h1, h2, h3 {
-  font-family: var(--font-main);
-  text-transform: uppercase;
+footer .btn {
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle at 30% 30%, #666 0%, #333 80%);
+  border-radius: 50%;
+  box-shadow: 0 3px 0 #111, inset 0 -2px 4px rgba(255,255,255,0.2);
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
 }
 
-/* Links look like LCD text pixels */
-a {
+footer .btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #111, inset 0 2px 4px rgba(0,0,0,0.5);
+  background: radial-gradient(circle at 30% 30%, #555 0%, #222 80%);
+}
+
+/* Footer text */
+footer p {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
   color: var(--lcd-dark);
-  text-decoration: underline dotted;
-}
-
-a:hover {
-  color: var(--lcd-border);
-}
-
-/* Optional pixelated SVG look */
-svg {
-  image-rendering: pixelated;
+  margin: 0;
 }
