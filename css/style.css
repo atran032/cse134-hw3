@@ -131,6 +131,8 @@ header {
   }
 }
 
+
+
 /* --- LCD Screen --- */
 main::before {
   content: "";
@@ -177,7 +179,7 @@ main {
   }
 }
 
-/* CRT lines only inside screen */
+/* CRT lines */
 main::after {
   content: "";
   position: absolute;
@@ -202,12 +204,13 @@ main picture img {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-
 game-review {
   display: block;
   border: 2px solid var(--lcd-border, #1e2f24);
   margin: 10px;
 }
+
+
 
 /* --- Bottom Bezel --- */
 footer {
@@ -216,7 +219,7 @@ footer {
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
   box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 1.25rem 2.5rem; /* ⬅️ Balanced with top bezel */
+  padding: 1.25rem 2.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -232,7 +235,7 @@ footer {
     );
     opacity: 0.5;
     border-radius: 8px;
-    margin-left: 0.5rem; /* ⬅️ Slight inward offset */
+    margin-left: 0.5rem;
   }
 
   .toggles {
@@ -250,16 +253,77 @@ footer {
     transition: all 0.1s ease-in-out;
   }
 
-  .btn:active {
+  .toggle-btn:active {
     transform: translateY(2px);
     box-shadow: 0 1px 0 #111, inset 0 2px 4px rgba(0,0,0,0.5);
     background: radial-gradient(circle at 30% 30%, #555 0%, #222 80%);
   }
 
-  p { /* Footer text */
+  p {
     font-family: var(--font-ui);
     font-size: 0.8rem;
     color: var(--lcd-dark, #2d4739);
-    margin: 0 0.5rem 0 auto; /* ⬅️ A little breathing room on the right */
+    margin: 0 0.5rem 0 auto;
+  }
+}
+
+
+
+/* --- Minimal LCD mode for small screens --- */
+@media (max-width: 600px) {
+  body {
+    background: var(--lcd-light, #c5dca0); /* Match the screen color */
+    margin: 0;
+  }
+
+  .console {
+    background: none;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .console-top,
+  .console-bottom {
+    display: none; /* Hide bezels */
+  }
+
+  main.screen {
+    width: 100%;
+    max-width: none;
+    min-height: 100dvh;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 1rem;
+  }
+
+  /* Optional: put the nav links somewhere still accessible */
+  .console nav {
+    display: flex;
+    justify-content: center;
+    background: var(--lcd-dark, #2d4739);
+    padding: 0.5rem;
+  }
+
+  .console nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .console nav a {
+    background: var(--lcd-light, #c5dca0);
+    border: 2px solid var(--lcd-dark, #2d4739);
+    color: var(--lcd-dark, #2d4739);
+    text-decoration: none;
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
   }
 }
