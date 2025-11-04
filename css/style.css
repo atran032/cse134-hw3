@@ -1,12 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Orbitron:wght@500&display=swap');
 @import url('var.css');
 
-/* Console container */
+body {
+  background: #243441;
+}
+
+/* --- Console Container --- */
 .console {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   background: #cfc8b0; /* Game Boy plastic */
   border-radius: 30px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
@@ -16,45 +19,118 @@
   border: 6px solid #8a8577;
 }
 
-/* Top bezel */
+/* --- Top Bezel --- */
 header.bezel-top {
   width: 100%;
   background: linear-gradient(to bottom, #d9d2be 0%, #bdb49f 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 1.25rem 2.5rem; /* Balanced with footer */
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
   box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.2);
-}
-
-header.bezel-top h1 {
-  font-family: var(--font-ui); /* 👈 blocky UI font */
-  font-size: 1rem;
-  color: var(--lcd-dark);
-  flex: 1;
-  text-align: center;
-}
-
-header nav a {
-  font-family: var(--font-ui);
-  color: var(--lcd-dark);
-  text-decoration: none;
-  font-size: 0.8rem;
+  box-sizing: border-box;
+  gap: 1.5rem; /* breathing room between LED, title, and nav */
 }
 
 header .led {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: radial-gradient(circle, red 0%, darkred 80%);
   box-shadow: 0 0 6px red;
+  flex-shrink: 0;
+  margin-left: 0.25rem;
 }
 
-/* --- Screen area --- */
+header h1 {
+  font-family: var(--font-ui);
+  font-size: 1.2rem;
+  color: var(--lcd-dark);
+  text-align: center;
+  flex: 1;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/* --- Navigation --- */
+header nav {
+  flex-shrink: 0;
+}
+
+header nav ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header nav li {
+  flex: 1;
+}
+
+header nav a {
+  display: block;
+  padding: 0.6rem 1rem;
+  background: #bdb49f;
+  border: 2px solid #8a8577;
+  border-right: none; /* remove double borders between buttons */
+  font-family: var(--font-ui);
+  color: var(--lcd-dark);
+  font-size: 0.75rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  transition: all 0.15s ease-in-out;
+  min-width: 100px;
+}
+
+/* last button keeps right border */
+header nav li:last-child a {
+  border-right: 2px solid #8a8577;
+}
+
+/* Remove rounding to make them flush */
+header nav a {
+  border-radius: 0;
+}
+
+/* Hover and click effects */
+header nav a:hover {
+  background: #a59c89;
+  transform: translateY(-1px);
+}
+
+header nav a:active {
+  background: #8a8577;
+  transform: translateY(1px);
+}
+
+/* Responsive stacking for small screens */
+@media (max-width: 1000px) {
+  header.bezel-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  header nav ul {
+    flex-wrap: wrap;
+  }
+
+  header nav li {
+    flex: 1 1 50%;
+  }
+
+  header nav a {
+    font-size: 0.7rem;
+  }
+}
+
+/* --- LCD Screen --- */
 main.screen {
-  position: relative; /* 👈 needed for CRT overlay positioning */
+  position: relative;
   background: var(--lcd-light);
   color: var(--lcd-dark);
   width: 90%;
@@ -65,13 +141,13 @@ main.screen {
   box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.4);
   text-align: center;
   text-shadow: 0 0 2px rgba(45, 71, 57, 0.6);
-  margin: 1rem auto;
+  margin: 1.5rem auto;
   overflow-y: auto;
-  font-family: var(--font-alt); /* 👈 pixelated screen font */
+  font-family: var(--font-alt);
   font-size: var(--font-size-base);
 }
 
-/* 👇 CRT scanline overlay — applied only to the screen */
+/* CRT lines only inside screen */
 main.screen::after {
   content: "";
   position: absolute;
@@ -85,20 +161,21 @@ main.screen::after {
   background-size: 100% 4px;
   pointer-events: none;
   z-index: 2;
-  border-radius: inherit; /* keeps the scanlines nicely inside the screen frame */
+  border-radius: inherit;
 }
 
-/* --- Bottom bezel --- */
+/* --- Bottom Bezel --- */
 footer.bezel-bottom {
   width: 100%;
   background: linear-gradient(to top, #d9d2be 0%, #bdb49f 100%);
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
   box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 1rem 2rem;
+  padding: 1.25rem 2.5rem; /* ⬅️ Balanced with top bezel */
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 2rem;
 }
 
 /* Speaker grille */
@@ -112,12 +189,13 @@ footer .speaker {
   );
   opacity: 0.5;
   border-radius: 8px;
+  margin-left: 0.5rem; /* ⬅️ Slight inward offset */
 }
 
 /* --- Buttons --- */
 footer .buttons {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 footer .btn {
@@ -141,5 +219,5 @@ footer p {
   font-family: var(--font-ui);
   font-size: 0.8rem;
   color: var(--lcd-dark);
-  margin: 0;
+  margin: 0 0.5rem 0 auto; /* ⬅️ A little breathing room on the right */
 }
